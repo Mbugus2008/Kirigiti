@@ -76,6 +76,19 @@ page 52204035 "Student Card"
                     StudentMgt.BillStudent('2025T1', Rec."Admission No");
                 end;
             }
+            action("Student Statement")
+            {
+                trigger OnAction()
+                var
+                    StmtReport: Report "Student Statement";
+                    Students: Record Customer;
+                begin
+                    Students.Reset();
+                    Students.SetRange("No.", Rec."Admission No");
+                    if Students.FindSet() then
+                        report.Run(Report::"Student Statement", true, false, Students);
+                end;
+            }
         }
     }
 

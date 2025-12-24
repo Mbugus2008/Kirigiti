@@ -17,6 +17,8 @@ page 52204035 "Student Card"
                 field("Middle Name"; "Middle Name") { }
                 field("Last Name"; "Last Name") { }
                 field("Full Name"; "Full Name") { }
+                field(Status; Status) { }
+                field(Location; Location) { }
                 field("Date of Birth"; "Date of Birth") { }
                 field(Gender; Gender) { }
                 field("Program Code"; "Program Code") { }

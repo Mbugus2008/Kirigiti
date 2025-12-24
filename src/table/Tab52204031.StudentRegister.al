@@ -98,6 +98,13 @@ table 52204031 "Student Register"
         {
             Editable = false;
         }
+        field(53; Status; Enum Status)
+        {
+        }
+        field(54; Location; Code[50])
+        {
+            TableRelation = Location."Code";
+        }
     }
 
     keys

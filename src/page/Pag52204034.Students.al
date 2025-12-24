@@ -16,9 +16,10 @@ page 52204034 Students
                 {
 
                 }
-                field("First Name"; "First Name") { }
-                field("Middle Name"; "Middle Name") { }
-                field("Last Name"; "Last Name") { }
+
+                field("Full Name"; "Full Name") { }
+                field("status"; Status) { }
+
                 field(Gender; Gender) { }
                 field("Program Code"; "Program Code") { }
                 field("Program Name"; "Program Name") { }

@@ -18,6 +18,7 @@ page 52204028 "Student Admission Card"
                 field("Middle Name"; "Middle Name") { }
                 field("Last Name"; "Last Name") { }
                 field("Full Name"; "Full Name") { }
+
                 field("Date of Birth"; "Date of Birth") { }
                 field(Gender; Gender) { }
                 field("Program Code"; "Program Code") { }
@@ -26,6 +27,7 @@ page 52204028 "Student Admission Card"
                 field("Stage Name"; "Stage Name") { }
                 field("Student Image"; "Student Image") { }
                 field(Address; Address) { }
+                field(Location; Location) { }
                 field(City; City) { }
                 field(County; County) { }
                 field(PWD; PWD) { }

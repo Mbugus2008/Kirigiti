@@ -5,7 +5,7 @@ enum 52204031 "Family Tree"
     value(0; "")
     {
     }
-    value(1; Farther)
+    value(1; Father)
     {
     }
     value(2; Mother)
@@ -18,7 +18,7 @@ enum 52204031 "Family Tree"
     {
     }
 
-    value(5; "Grand Farther")
+    value(5; "Grand Father")
     {
     }
     value(6; "Grand Mother")

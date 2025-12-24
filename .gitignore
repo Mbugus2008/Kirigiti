@@ -1,0 +1,16 @@
+# AL Language
+.vscode/.alcache/
+*.app
+.altestrunner/
+.vscode/.altemplates/
+
+# VS Code
+.vscode/settings.json
+
+# Build outputs
+/.netpackages/
+/.alpackages/
+
+# Temporary files
+*.tmp
+*.bak

@@ -18,6 +18,8 @@ page 52204027 "Student Admissions"
                 field("First Name"; "First Name") { }
                 field("Middle Name"; "Middle Name") { }
                 field("Last Name"; "Last Name") { }
+
+                field("Full Name"; "Full Name") { }
                 field(Gender; Gender) { }
                 field("Program Code"; "Program Code") { }
                 field("Program Name"; "Program Name") { }

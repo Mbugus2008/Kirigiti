@@ -93,6 +93,11 @@ table 52204026 "Student Admission"
             Editable = false;
         }
         field(52; Processed; Boolean) { }
+
+        field(54; Location; Code[50])
+        {
+            TableRelation = Location."Code";
+        }
     }
 
     keys

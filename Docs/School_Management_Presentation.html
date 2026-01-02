@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System - TrimLine Systems</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .slide {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 60px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .title-slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #4da8da, #007bff, #4da8da);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .title-slide h2 {
+            font-size: 1.8rem;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            color: #4da8da;
+            margin-bottom: 20px;
+        }
+        
+        .company-info {
+            margin-top: 60px;
+            color: #888;
+        }
+        
+        /* Content Slides */
+        .content-slide {
+            background: linear-gradient(180deg, #16213e 0%, #1a1a2e 100%);
+        }
+        
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4da8da;
+        }
+        
+        .slide-header h2 {
+            font-size: 2.2rem;
+            color: #4da8da;
+        }
+        
+        .slide-number {
+            background: #4da8da;
+            color: #1a1a2e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .content {
+            flex: 1;
+            display: flex;
+            gap: 40px;
+        }
+        
+        .content-full {
+            flex: 1;
+        }
+        
+        .content-left, .content-right {
+            flex: 1;
+        }
+        
+        h3 {
+            color: #4da8da;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        ul li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(77, 168, 218, 0.2);
+        }
+        
+        ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4da8da;
+            font-weight: bold;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: linear-gradient(145deg, #1e2a4a, #16213e);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(77, 168, 218, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(77, 168, 218, 0.2);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .card h4 {
+            color: #4da8da;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .card p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Flow Diagram */
+        .flow-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .flow-step {
+            background: linear-gradient(145deg, #1e2a4a, #16213e);
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #4da8da;
+            min-width: 150px;
+        }
+        
+        .flow-step .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .flow-arrow {
+            font-size: 2rem;
+            color: #4da8da;
+        }
+        
+        /* Table */
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .pricing-table th {
+            background: #4da8da;
+            color: #1a1a2e;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+        
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(77, 168, 218, 0.3);
+        }
+        
+        .pricing-table tr:nth-child(even) {
+            background: rgba(77, 168, 218, 0.1);
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            color: #4da8da;
+            font-weight: bold;
+        }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(145deg, #1e2a4a, #16213e);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 4px solid #4da8da;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            color: #4da8da;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            color: #a0a0a0;
+            margin-top: 10px;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .nav button {
+            background: #4da8da;
+            color: #1a1a2e;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .nav button:hover {
+            background: #3d98ca;
+        }
+        
+        .progress {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: #4da8da;
+            transition: width 0.3s;
+        }
+        
+        /* Two column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(145deg, rgba(77, 168, 218, 0.2), rgba(77, 168, 218, 0.1));
+            border: 2px solid #4da8da;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .highlight-box h4 {
+            color: #4da8da;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* Contact slide */
+        .contact-info {
+            display: flex;
+            gap: 60px;
+            margin-top: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .contact-item .icon {
+            font-size: 1.5rem;
+            color: #4da8da;
+        }
+        
+        /* Keyboard hint */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <div class="slide title-slide active" data-slide="1">
+        <div class="logo">🏫</div>
+        <h1>School Management System</h1>
+        <h2>Comprehensive Solution on Microsoft Dynamics 365 Business Central</h2>
+        <div class="company-info">
+            <p style="font-size: 1.5rem; color: #4da8da; margin-bottom: 10px;">TrimLine Systems & Solutions</p>
+            <p>Kijabe Street, Norfolk Towers 1st Floor, Nairobi</p>
+            <p>www.trimline.co.ke</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Overview -->
+    <div class="slide content-slide" data-slide="2">
+        <div class="slide-header">
+            <h2>📋 System Overview</h2>
+            <span class="slide-number">2</span>
+        </div>
+        <div class="content-full">
+            <p style="font-size: 1.3rem; margin-bottom: 30px; color: #a0a0a0;">
+                A complete 360° view of your institution — students, staff, academics, finances, and communications — all in one unified platform.
+            </p>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">👨‍🎓</div>
+                    <h4>Student Management</h4>
+                    <p>Registration, admissions, profiles, transfers, CBC curriculum support</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <h4>Fee Management</h4>
+                    <p>Fee structures, billing, tracking, statements, waivers & discounts</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h4>M-Pesa Integration</h4>
+                    <p>Auto-reconciliation, payment receipts, real-time posting</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h4>Dashboard & Reports</h4>
+                    <p>Real-time KPIs, analytics, drill-down reports</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h4>SMS Gateway</h4>
+                    <p>Automated alerts for fees, attendance, results, announcements</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h4>Academic Management</h4>
+                    <p>Exams, grading, report cards, transcripts</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Student Management -->
+    <div class="slide content-slide" data-slide="3">
+        <div class="slide-header">
+            <h2>👨‍🎓 Student Management</h2>
+            <span class="slide-number">3</span>
+        </div>
+        <div class="content">
+            <div class="content-left">
+                <h3>Admission Process</h3>
+                <ul>
+                    <li>Online & manual application forms</li>
+                    <li>Document upload & verification</li>
+                    <li>Guardian/Parent registration</li>
+                    <li>Admission approval workflow</li>
+                    <li>Auto student number generation</li>
+                    <li>Class/Grade assignment</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <h3>Student Records</h3>
+                <ul>
+                    <li>Complete student profiles</li>
+                    <li>CBC curriculum support (PG - Grade 12)</li>
+                    <li>Medical & emergency contacts</li>
+                    <li>Transfer management</li>
+                    <li>Academic history tracking</li>
+                    <li>Document management</li>
+                </ul>
+            </div>
+        </div>
+        <div class="flow-container" style="margin-top: 40px;">
+            <div class="flow-step">
+                <div class="icon">📝</div>
+                <div>Application</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="icon">✅</div>
+                <div>Approval</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="icon">🎓</div>
+                <div>Admission</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="icon">💰</div>
+                <div>Fee Setup</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+                <div class="icon">📚</div>
+                <div>Class Assignment</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Fee Management -->
+    <div class="slide content-slide" data-slide="4">
+        <div class="slide-header">
+            <h2>💰 Fee Management</h2>
+            <span class="slide-number">4</span>
+        </div>
+        <div class="content">
+            <div class="content-left">
+                <h3>Fee Structure Setup</h3>
+                <ul>
+                    <li>Multiple fee categories (Tuition, Transport, Meals, etc.)</li>
+                    <li>Grade/Class-based fee structures</li>
+                    <li>Term-wise fee distribution</li>
+                    <li>Scholarships & discounts</li>
+                    <li>Individual fee adjustments</li>
+                    <li>Fee waivers management</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <h3>Billing & Tracking</h3>
+                <ul>
+                    <li>Automatic fee generation</li>
+                    <li>Student fee statements</li>
+                    <li>Balance tracking per student</li>
+                    <li>Arrears management</li>
+                    <li>Fee collection reports</li>
+                    <li>Aged debtor analysis</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 30px;">
+            <h4>💡 Key Benefit</h4>
+            <p style="font-size: 1.1rem;">Automatic fee calculation when student is admitted — no manual entry required. Fee structures are applied based on grade, term, and student type.</p>
+        </div>
+    </div>
+
+    <!-- Slide 5: Payment Processing -->
+    <div class="slide content-slide" data-slide="5">
+        <div class="slide-header">
+            <h2>📱 Payment & M-Pesa Integration</h2>
+            <span class="slide-number">5</span>
+        </div>
+        <div class="content-full">
+            <div class="two-col">
+                <div>
+                    <h3>Payment Methods</h3>
+                    <ul>
+                        <li>M-Pesa Paybill integration</li>
+                        <li>Bank transfers</li>
+                        <li>Cash payments</li>
+                        <li>Cheque payments</li>
+                        <li>Credit/Debit cards</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>M-Pesa Features</h3>
+                    <ul>
+                        <li>Real-time payment notifications</li>
+                        <li>Automatic reconciliation</li>
+                        <li>Student account auto-posting</li>
+                        <li>Payment receipt generation</li>
+                        <li>Transaction reports</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flow-container" style="margin-top: 40px;">
+                <div class="flow-step" style="background: #0d7a3c; border-color: #0d7a3c;">
+                    <div class="icon">📱</div>
+                    <div>Parent Pays via M-Pesa</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">🔄</div>
+                    <div>Auto Reconciliation</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">✅</div>
+                    <div>Account Updated</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">💬</div>
+                    <div>SMS Confirmation</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: SMS Gateway -->
+    <div class="slide content-slide" data-slide="6">
+        <div class="slide-header">
+            <h2>💬 SMS & Communication</h2>
+            <span class="slide-number">6</span>
+        </div>
+        <div class="content">
+            <div class="content-left">
+                <h3>Automated Notifications</h3>
+                <ul>
+                    <li>Fee payment confirmations</li>
+                    <li>Fee balance reminders</li>
+                    <li>Exam results notifications</li>
+                    <li>Attendance alerts</li>
+                    <li>School announcements</li>
+                    <li>Emergency notifications</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <h3>Bulk SMS Features</h3>
+                <ul>
+                    <li>Send to all parents</li>
+                    <li>Send to specific classes/grades</li>
+                    <li>Custom recipient lists</li>
+                    <li>Scheduled SMS sending</li>
+                    <li>Delivery reports</li>
+                    <li>SMS balance tracking</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight-box" style="margin-top: 30px;">
+            <h4>📊 SMS Pricing</h4>
+            <div style="display: flex; gap: 40px; margin-top: 15px;">
+                <div><span style="color: #4da8da; font-size: 1.5rem;">KES 0.80</span><br>Per SMS (Starter)</div>
+                <div><span style="color: #4da8da; font-size: 1.5rem;">KES 0.60</span><br>Per SMS (Business)</div>
+                <div><span style="color: #4da8da; font-size: 1.5rem;">Custom</span><br>Enterprise Volume</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Reports & Dashboard -->
+    <div class="slide content-slide" data-slide="7">
+        <div class="slide-header">
+            <h2>📊 Reports & Dashboard</h2>
+            <span class="slide-number">7</span>
+        </div>
+        <div class="content-full">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">📈</div>
+                    <div class="stat-label">Real-time KPIs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">📋</div>
+                    <div class="stat-label">Student Reports</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">💵</div>
+                    <div class="stat-label">Financial Reports</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">📊</div>
+                    <div class="stat-label">Analytics</div>
+                </div>
+            </div>
+            <div class="two-col" style="margin-top: 40px;">
+                <div>
+                    <h3>Available Reports</h3>
+                    <ul>
+                        <li>Student List by Class/Grade</li>
+                        <li>Fee Collection Summary</li>
+                        <li>Outstanding Balances</li>
+                        <li>Cash Book Report</li>
+                        <li>Student Statements</li>
+                        <li>Daily/Weekly/Monthly Reports</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Dashboard Features</h3>
+                    <ul>
+                        <li>Total students enrolled</li>
+                        <li>Fee collection this term</li>
+                        <li>Outstanding balances</li>
+                        <li>Recent payments</li>
+                        <li>Admission trends</li>
+                        <li>Drill-down capabilities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Key Benefits -->
+    <div class="slide content-slide" data-slide="8">
+        <div class="slide-header">
+            <h2>✅ Key Benefits</h2>
+            <span class="slide-number">8</span>
+        </div>
+        <div class="content-full">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Faster Fee Collection</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">90%</div>
+                    <div class="stat-label">Less Reconciliation Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Faster Reports</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">65%</div>
+                    <div class="stat-label">Admin Time Saved</div>
+                </div>
+            </div>
+            <div class="two-col" style="margin-top: 40px;">
+                <div class="highlight-box">
+                    <h4>⏱️ Time Savings</h4>
+                    <ul style="margin-top: 10px;">
+                        <li>M-Pesa reconciliation: 30 mins vs 4-6 hours</li>
+                        <li>Report generation: Instant vs 2-3 days</li>
+                        <li>Student registration: Minutes vs hours</li>
+                    </ul>
+                </div>
+                <div class="highlight-box">
+                    <h4>🎯 Accuracy</h4>
+                    <ul style="margin-top: 10px;">
+                        <li>Data entry errors reduced by 90%</li>
+                        <li>Automatic calculations - no manual errors</li>
+                        <li>Real-time balance updates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Investment -->
+    <div class="slide content-slide" data-slide="9">
+        <div class="slide-header">
+            <h2>💼 Investment Packages</h2>
+            <span class="slide-number">9</span>
+        </div>
+        <div class="content-full">
+            <table class="pricing-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>🟢 Essential</th>
+                    <th>🔵 Complete</th>
+                    <th>🟣 Enterprise</th>
+                </tr>
+                <tr>
+                    <td><strong>Price</strong></td>
+                    <td class="price">KES 200,000</td>
+                    <td class="price">KES 500,000</td>
+                    <td class="price">KES 800,000</td>
+                </tr>
+                <tr>
+                    <td>Best For</td>
+                    <td>Up to 500 students</td>
+                    <td>500 - 2,000 students</td>
+                    <td>2,000+ students</td>
+                </tr>
+                <tr>
+                    <td>Student Management</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>Fee Management</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>M-Pesa Integration</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>SMS Notifications</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>Academic Management</td>
+                    <td>❌</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>Parent Mobile App</td>
+                    <td>❌</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>Multi-Campus Support</td>
+                    <td>❌</td>
+                    <td>❌</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>Support Period</td>
+                    <td>3 months</td>
+                    <td>6 months</td>
+                    <td>12 months</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 10: Why Choose Us -->
+    <div class="slide content-slide" data-slide="10">
+        <div class="slide-header">
+            <h2>🏆 Why Choose TrimLine?</h2>
+            <span class="slide-number">10</span>
+        </div>
+        <div class="content-full">
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🏢</div>
+                    <h4>Microsoft Partner</h4>
+                    <p>Certified Microsoft Dynamics 365 Business Central partner since 2017</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎓</div>
+                    <h4>Education Expertise</h4>
+                    <p>Deep understanding of Kenyan school operations and requirements</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔧</div>
+                    <h4>Local Support</h4>
+                    <p>Nairobi-based team for quick response and on-site support</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h4>M-Pesa Experts</h4>
+                    <p>Proven track record with mobile money integrations</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h4>Trusted by Many</h4>
+                    <p>Serving SACCOs, schools, and businesses across Kenya</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h4>Scalable Solution</h4>
+                    <p>Grows with your school from 100 to 10,000+ students</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Demo -->
+    <div class="slide content-slide" data-slide="11">
+        <div class="slide-header">
+            <h2>🖥️ Live Demo</h2>
+            <span class="slide-number">11</span>
+        </div>
+        <div class="content-full" style="text-align: center; padding-top: 50px;">
+            <div style="font-size: 4rem; margin-bottom: 30px;">🎬</div>
+            <h3 style="font-size: 2rem; margin-bottom: 40px;">Let's See It In Action!</h3>
+            <div class="flow-container" style="justify-content: center; gap: 30px;">
+                <div class="flow-step">
+                    <div class="icon">⚙️</div>
+                    <div>Setup</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">👨‍🎓</div>
+                    <div>Admission</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">💰</div>
+                    <div>Fees</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">💵</div>
+                    <div>Payment</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">💬</div>
+                    <div>SMS</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="icon">📊</div>
+                    <div>Reports</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Contact -->
+    <div class="slide title-slide" data-slide="12">
+        <div class="logo">🏫</div>
+        <h1>Thank You!</h1>
+        <h2>Let's Transform Your School Together</h2>
+        <div class="contact-info" style="margin-top: 50px;">
+            <div class="contact-item">
+                <span class="icon">🌐</span>
+                <span>www.trimline.co.ke</span>
+            </div>
+            <div class="contact-item">
+                <span class="icon">📧</span>
+                <span>info@trimline.co.ke</span>
+            </div>
+            <div class="contact-item">
+                <span class="icon">📍</span>
+                <span>Kijabe Street, Norfolk Towers</span>
+            </div>
+        </div>
+        <div style="margin-top: 60px; color: #4da8da; font-size: 1.3rem;">
+            Questions?
+        </div>
+    </div>
+
+    <div class="progress" id="progress"></div>
+    
+    <div class="nav">
+        <button onclick="prevSlide()">← Previous</button>
+        <button onclick="nextSlide()">Next →</button>
+    </div>
+    
+    <div class="keyboard-hint">Use ← → arrow keys or click buttons to navigate</div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 12;
+
+        function showSlide(n) {
+            if (n < 1) n = 1;
+            if (n > totalSlides) n = totalSlides;
+            
+            currentSlide = n;
+            
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            document.querySelector(`[data-slide="${n}"]`).classList.add('active');
+            
+            // Update progress bar
+            const progress = (n / totalSlides) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(1);
+    </script>
+</body>
+</html>

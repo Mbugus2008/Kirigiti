@@ -109,6 +109,24 @@ pageextension 52204022 "Student Functions" extends "Business Manager Role Center
                         RunObject = report "Cash Book";
                     }
                 }
+                group("SMS Management")
+                {
+                    Caption = 'SMS Management';
+                    action("Bulk SMS")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Bulk SMS';
+                        RunObject = page "Bulk Sms List";
+                        ToolTip = 'Create and send bulk SMS messages.';
+                    }
+                    action("SMS Messages")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'SMS Messages';
+                        RunObject = page "SMS Messages";
+                        ToolTip = 'View all SMS messages queued for sending.';
+                    }
+                }
             }
         }
     }
